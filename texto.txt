@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balladares Constructions</title>
+    <style>
+        /* CSS integrado */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ffd700;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem;
+            background-color: #000;
+        }
+
+        nav {
+            background-color: #222;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            margin: 0 1rem;
+        }
+
+        nav a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        .galeria {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .proyecto {
+            width: 200px;
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .proyecto img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .proyecto:hover {
+            transform: scale(1.05);
+        }
+
+        form label {
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #000;
+            color: #ffd700;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #222;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #25D366;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-contenido {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .modal p {
+            text-align: center;
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        .cerrar {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Balladares Constructions</h1>
+        <p>Construcción y remodelación de calidad</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="servicios">
+            <h2>Servicios</h2>
+            <ul>
+                <li>Construcción de casas y locales comerciales</li>
+                <li>Remodelación de interiores y exteriores</li>
+                <li>Asesoría en diseño y planificación</li>
+            </ul>
+        </section>
+
+        <section id="proyectos">
+            <h2>Proyectos Recientes</h2>
+            <div class="galeria">
+                <div class="proyecto" onclick="abrirModal('proyecto1.jpg','Remodelación de baño moderno')">
+                    <img src="proyecto1.jpg" alt="Proyecto 1">
+                    <p>Remodelación de baño moderno</p>
+                </div>
+                <div class="proyecto" onclick="abrirModal('proyecto2.jpg','Construcción de fachada exterior')">
+                    <img src="proyecto2.jpg" alt="Proyecto 2">
+                    <p>Construcción de fachada exterior</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal -->
+        <div id="modal" class="modal">
+            <span class="cerrar" onclick="cerrarModal()">&times;</span>
+            <img class="modal-contenido" id="modal-img">
+            <p id="modal-text"></p>
+        </div>
+
+        <section id="contacto">
+            <h2>Contacto</h2>
+            <form id="contactForm">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" required></textarea>
+
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Balladares Constructions. Todos los derechos reservados.</p>
+        <a href="https://wa.me/1234567890" target="_blank" class="whatsapp-btn">💬 WhatsApp</a>
+    </footer>
+
+    <script>
+        // Formulario
+        document.getElementById("contactForm").addEventListener("submit", function(e){
+            e.preventDefault();
+            alert("¡Gracias por tu mensaje! Nos pondremos en contacto pronto.");
+            this.reset();
+        });
+
+        // Modal
+        function abrirModal(img, texto){
+            document.getElementById("modal").style.display = "block";
+            document.getElementById("modal-img").src = img;
+            document.getElementById("modal-text").innerText = texto;
+        }
+
+        function cerrarModal(){
+            document.getElementById("modal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
